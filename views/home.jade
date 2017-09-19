@@ -1,92 +1,26 @@
 extends layout
 
+
+	
+
+html.
+
+	<script>
+	document.write('<h4>'+'Be first to vote!'+'</h4>');
+	//var g=JSON.parse('!{names}')
+	//console.log(JSON.stringify(g));
+	//console.log(g);
+	console.log('idiots22');
+	</script>
+
+
 block content
 	div.container-fluid
 		div.row
-			h1.text-left Welcome #{user.username}.
-			div.col-xs-4
-								
-								
-								h4 Polls by #{user.username}
-								
-								
-								
-								each item in arr
-									li 
-										a(href='/displaypoll'+'?name='+item) #{item}
-										
-								p
-								
-								h4 Recent Polls
-								
-								each item in arr_all
-									li 
-										a(href='/displaypoll'+'?name='+item) #{item}
-								
-			div.col-xs-6
-				
-				html.
-					
-					
-					
-					
-					
-					
-					
-					
-					<h4>Create new poll</h4>
-					<form class="pollname" , action="/poll_submit", method="POST">
-					<p>Pollname
-					<input type='text', name='pollname', placeholder='pollname',required, autofocus)></input>
-					</p>
-					<p>Number of choices 
-					
-					<button id="plus" , type="button" class='btn btn-sm btn-primary'>+</button>
-					<button id="minus", type="button" class='btn btn-sm btn-primary'>-</button>
-					</p>
-					
-					<div id="choices"></div>
-					<p></p>
-					<button class='btn btn-md btn-primary', type='submit'>Submit poll</button>
-					
-					</form>
-					</div>
-					
-					
-					
-					
-					<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-					<script>
-					$(document).ready(function(){
-						//$("#test").hide()
-						//$("#test").mouseenter(function(){
-						//	alert("You entered p1!");
-						//});
-			
-							var n=1;
-							$("#choices").empty();
-							//$("#choices").append('<form class="pollname" , action="/poll_submit", method="POST">')
-								for (var i=0;i<=n;i++){
-									$("#choices").append("<input type='text', name='opt_number"+i+"' ,"+ "class='form-control', placeholder='option"+i+"'"+" ,required, autofocus></input>");
-							}
-							$("#plus" ).click(function() {
-							n++;
-							$("#choices").empty();
-							//$("#choices").append('<form class="pollname" , action="/poll_submit", method="POST">')
-								for (var i=0;i<=n;i++){
-									$("#choices").append("<input type='text', name='opt_number"+i+"' ,"+ "class='form-control', placeholder='option"+i+"'"+" ,required, autofocus></input>");
-							}})
-							$("#minus" ).click(function() {
-								n--;
-								$("#choices").empty();
-								//$("#choices").append(n);
-							//	$("#choices").append('<form class="pollname" , action="/poll_submit", method="POST">')
-								for (var i=0;i<=n;i++){
-									$("#choices").append("<input type='text', name='opt_number"+i+"' ,"+ "class='form-control', placeholder='option"+i+"'"+" ,required, autofocus></input>");
-							}})
-							})
-					</script>
-			p
-				p
-					p
-						a(href='/logout') logout
+		<div id='main'>
+		h1.text-left Welcome #{user.username} #{names}.
+		<h4>Please enter your location</h4>
+		<form class="user_location" , action="/location_submit_", method="POST">
+		<h4>Location
+		<input type='text', name='user_location', placeholder='location',required, autofocus)></input>
+		</h4>

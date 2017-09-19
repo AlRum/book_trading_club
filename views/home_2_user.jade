@@ -1,0 +1,23 @@
+script(type='text/javascript').
+	var g=JSON.parse('!{names}')
+	var p=JSON.parse('!{images}')
+html.
+	<script>
+		document.write("<body>");
+		document.write("Be first to vote!");
+		//var g=JSON.parse('#{names}')
+		//console.log(JSON.stringify(g));
+		console.log(g);
+		console.log('idiots22');
+		document.write("</body>");
+		for (var i=0;i<5;i++){
+			document.write("<div>");
+			document.write(g[i]);
+			document.write('<img src='+p[i]+ ' alt="Mountain View" style="width:304px;height:228px;">')
+			document.write("</div>");
+		}
+	</script>
+	
+h1.text-left Welcome #{user.username} #{images}			
+			
+          

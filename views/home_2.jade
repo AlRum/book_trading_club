@@ -1,0 +1,66 @@
+extends layout
+block content
+
+	script(type='text/javascript').
+		var g=JSON.parse('!{names}')
+		var p=JSON.parse('!{images}')
+		var people=JSON.parse('!{people}')
+		var user_go=JSON.parse('!{user_go}')
+	
+	html.
+		<div class='container'>
+		<div class="jumbotron">
+		<h1>Best places in your location</h1>
+		<p>See who is going out tonight</p>
+		</div>
+		<div id='main'>
+		<script>
+			//document.write("<body>");
+			//document.write("Be first to vote!");
+			//var g=JSON.parse('#{names}')
+			//console.log(JSON.stringify(g));
+			console.log(g);
+			//console.log('idiots22');
+			//document.write("<div class='container'>");
+			for (var i=0;i<5;i++){
+				if (user_go[i]==0){
+				document.write("<div class='nogo'>");
+				}
+				else {
+				document.write("<div class='go'>");
+				}
+				document.write('<h1>'+g[i]+'</h1>');
+				document.write('<img src='+p[i]+ ' alt="" >') //style="width:304px;height:228px;"
+				document.write('<h4 style="text-align: center">People going tonight:</p>');
+				document.write(people[i]);
+				
+				if (user_go[i]==0){
+				document.write ('<form class="form-vote",id="'+g[i]+'", action="/update_go", method="POST">');
+				document.write ('<div class="holder">')
+				document.writeln('<label>');
+				
+				document.writeln('<input type="radio" autocomplete="off" checked="checked" name="go" value="'+g[i]+'" style="display:none"></input>');
+				document.write ('<input type="submit" class="btn btn-success btn_go" value="Go here!" />');
+				document.write("</div>");
+				document.writeln('</label>');
+				document.write ('</form>')
+				}
+				else
+				{
+				document.write ('<form class="form-vote",id="'+g[i]+'", action="/dont_go", method="POST">');
+				document.write ('<div class="holder">')
+				document.writeln('<label>');
+				document.writeln('<input type="radio" autocomplete="off" checked="checked" name="go" value="'+g[i]+'" style="display:none"></input>');
+				document.write ('<input type="submit" class="btn btn-warning" value="Dont go here!" />');
+				document.write("</div>");
+				document.writeln('</label>');
+				
+				document.write ('</form>')}
+				document.write("</div>");
+			}
+			document.write("</div>");
+			document.write("</div>");
+		</script>
+		
+	p Change your location
+	a(href='/../home') home
