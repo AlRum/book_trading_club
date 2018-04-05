@@ -1,66 +1,122 @@
 extends layout
 block content
 
-	script(type='text/javascript').
-		var g=JSON.parse('!{names}')
-		var p=JSON.parse('!{images}')
-		var people=JSON.parse('!{people}')
-		var user_go=JSON.parse('!{user_go}')
+	script.
+		var u='!{books}'
+		var requests="!{user.trade_requests}";
+		var requests2="!{user.trade_requests_to_user}";
+		var username="#{user.username}";
+		requests=requests.split(",");
+		requests2=requests2.split(",");
+		console.log("array")
+		console.log(username)
+		g=JSON.parse(u)
+		console.log(requests)
+
+	
 	
 	html.
-		<div class='container'>
+		<div class='container-fluid'>
 		<div class="jumbotron">
-		<h1>Best places in your location</h1>
-		<p>See who is going out tonight</p>
+		<h1>Book trading club</h1>
+		<p>The best place to trade your books</p>
 		</div>
-		<div id='main'>
+		<div id="main">
+		<div class="row">
+		<div class="col-sm-4">
+		<h4>Welcome #{user.username} <a href="./signout">logout</a></h4>
+		<h4>Your city #{user.city}</h4>
+		<h4>Your state #{user.state}</h4>
+		</div>
+		<div class="col-sm-4">
+		<h4>Update your data:</h4>
+		<form class="location" , action="/location_submit_", method="POST">
+		<h4>Your city</h4>
+		<h4><input type='text', name='user_city' , placeholder='city' ,required, autofocus)></input>
+		</h4>
+		<h4>Your state</h4>
+		<h4><input type='text', name='user_state', placeholder='state',required, autofocus)></input>
+		</h4>
+		<button class='btn btn-md btn-primary', type='submit'>Submit</button>
+		</form>
+		</div>
+		<h4>Your trade requests (click to delete)</h4>
+		<h4 id = "delete"></h4>
 		<script>
+		console.log("1more")
+		console.log(requests)
+		for (var i=0;i<requests.length;i++)
+			{
+			var req = requests[i]; 
+			var r= $('<a href="./delete_request?name='+req+'"><input type="button" class="btn btn-danger" id="del' +req+ '" value="'+req+'"/></a>');
+			$("#delete").append(r);
+			}
+		</script>
+		<h4>Trade requests for you (click to accept)</h4>
+		<h4 id = "approve"></h4>
+		<script>
+		console.log("1more")
+		console.log(requests2)
+		for (var i=0;i<requests2.length;i++)
+			{
+			var req = requests2[i]; 
+			var r= $('<a href="./appr_request?name='+req+'"><input type="button" class="btn btn-success" id="appr' +req+ '" value="'+req+'"/></a>');
+			$("#approve").append(r);
+			}
+		</script>
+		</div>
+		
+		<h4>Book you like to trade</h4>
+		<form class="book" , action="/book_submit_", method="POST">
+		<h4>Your book
+		<input type='text', name='user_book', placeholder='book name',required, autofocus)></input>
+		</h4>
+		<button class='btn btn-md btn-primary', type='submit'>Submit</button>
+		</form>
+		<h4>Available books:</h4>
+		<h4>Your books are in the green frames</h4> 
+		<div class="row ">
+		
+		<script>
+			console.log("arrays")
+			console.log(g)
+			for (var i=0;i<g.length;i++){
+			
+			if (i%3==0&&i!=0)
+			{
+			document.write('</div>')
+			document.write('<div class="row">')
+			}
+			
+			document.write('<div class="col-sm-4">') //<div class="col-xs-8 col-sm-3 col-md-2 col-lg-2">
+			document.write('<a href="/tradebook?name='+g[i].name+'">')
+			//document.write('<p>'+g[i].name+'</p>');
+			console.log(g[i].user_submitted);
+			if (g[i].user_submitted==username){
+			document.write('<img src='+g[i].url+ ' alt="" class="product_listing_img img-responsive"'+'style="border:5px solid #00ff00">') //style="width:304px;height:228px;"
+			}
+			else
+			{
+				document.write('<img src='+g[i].url+ ' alt="" class="product_listing_img img-responsive">')
+			}
+			document.write('</div>')
+			/*if (i%3==0)
+			{
+			document.write('</div>')
+			}*/
+			document.write('</a>')
+			
+			
+				
+			}
 			//document.write("<body>");
 			//document.write("Be first to vote!");
 			//var g=JSON.parse('#{names}')
 			//console.log(JSON.stringify(g));
-			console.log(g);
+			//console.log(g);
 			//console.log('idiots22');
 			//document.write("<div class='container'>");
-			for (var i=0;i<5;i++){
-				if (user_go[i]==0){
-				document.write("<div class='nogo'>");
-				}
-				else {
-				document.write("<div class='go'>");
-				}
-				document.write('<h1>'+g[i]+'</h1>');
-				document.write('<img src='+p[i]+ ' alt="" >') //style="width:304px;height:228px;"
-				document.write('<h4 style="text-align: center">People going tonight:</p>');
-				document.write(people[i]);
-				
-				if (user_go[i]==0){
-				document.write ('<form class="form-vote",id="'+g[i]+'", action="/update_go", method="POST">');
-				document.write ('<div class="holder">')
-				document.writeln('<label>');
-				
-				document.writeln('<input type="radio" autocomplete="off" checked="checked" name="go" value="'+g[i]+'" style="display:none"></input>');
-				document.write ('<input type="submit" class="btn btn-success btn_go" value="Go here!" />');
-				document.write("</div>");
-				document.writeln('</label>');
-				document.write ('</form>')
-				}
-				else
-				{
-				document.write ('<form class="form-vote",id="'+g[i]+'", action="/dont_go", method="POST">');
-				document.write ('<div class="holder">')
-				document.writeln('<label>');
-				document.writeln('<input type="radio" autocomplete="off" checked="checked" name="go" value="'+g[i]+'" style="display:none"></input>');
-				document.write ('<input type="submit" class="btn btn-warning" value="Dont go here!" />');
-				document.write("</div>");
-				document.writeln('</label>');
-				
-				document.write ('</form>')}
-				document.write("</div>");
-			}
-			document.write("</div>");
-			document.write("</div>");
 		</script>
-		
-	p Change your location
+	</div>
 	a(href='/../home') home
+		

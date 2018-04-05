@@ -1,26 +1,70 @@
 extends layout
+block content
 
+	script.
+		var u='!{books}'
+		console.log("arrays")
+		g=JSON.parse(u)
+		console.log(g[1])
 
 	
-
-html.
-
-	<script>
-	document.write('<h4>'+'Be first to vote!'+'</h4>');
-	//var g=JSON.parse('!{names}')
-	//console.log(JSON.stringify(g));
-	//console.log(g);
-	console.log('idiots22');
-	</script>
-
-
-block content
-	div.container-fluid
-		div.row
+	
+	html.
+		<div class='container-fluid'>
+		<div class="jumbotron">
+		<h1>Book trading club</h1>
+		<p>The best place to trade your books</p>
+		</div>
 		<div id='main'>
-		h1.text-left Welcome #{user.username} #{names}.
-		<h4>Please enter your location</h4>
-		<form class="user_location" , action="/location_submit_", method="POST">
-		<h4>Location
-		<input type='text', name='user_location', placeholder='location',required, autofocus)></input>
+		<h4>Welcome #{user.username}</h4>
+		<h4>Your city #{user.city}</h4>
+		<h4>Your state #{user.state}</h4>
+		
+		<form class="location" , action="/location_submit_", method="POST">
+		<h4>Your city
+		<input type='text', name='user_city' , placeholder='city' ,required, autofocus)></input>
 		</h4>
+		<h4>Your state
+		<input type='text', name='user_state', placeholder='state',required, autofocus)></input>
+		</h4>
+		<button class='btn btn-md btn-primary', type='submit'>Submit</button>
+		</form>
+		
+		<h4>Book you like to trade</h4>
+		<form class="book" , action="/book_submit_", method="POST">
+		<h4>Your book
+		<input type='text', name='user_book', placeholder='book name',required, autofocus)></input>
+		</h4>
+		<button class='btn btn-md btn-primary', type='submit'>Submit</button>
+		</form>
+		<div class="row product-list">
+		
+		<script>
+			console.log("arrays")
+			console.log(g)
+			for (var i=0;i<g.length;i++){
+			
+			
+			document.write('<div class="col-xs-8 col-sm-3 col-md-2 col-lg-2"><div class="panel panel-warning"><div class="panel-body">')
+			document.write('<a href="/displaybook?name='+g[i].name+'">')
+			//document.write('<p>'+g[i].name+'</p>');
+			document.write('<img src='+g[i].url+ ' alt="" class="product_listing_img img-responsive" >') //style="width:304px;height:228px;"
+			document.write('</div>')
+			document.write('</div>')
+			document.write('</div>')
+			document.write('</a>')
+			
+			
+				
+			}
+			//document.write("<body>");
+			//document.write("Be first to vote!");
+			//var g=JSON.parse('#{names}')
+			//console.log(JSON.stringify(g));
+			//console.log(g);
+			//console.log('idiots22');
+			//document.write("<div class='container'>");
+		</script>
+	</div>
+	a(href='/../home') home
+		

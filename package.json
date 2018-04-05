@@ -2,6 +2,9 @@
   "name": "passport-mongo",
   "version": "0.0.1",
   "private": true,
+  "engines": {
+    "node": "4.6.1"
+  },
   "scripts": {
     "start": "node ./bin/www"
   },
@@ -13,6 +16,7 @@
     "debug": "~0.7.4",
     "express": "~4.2.0",
     "express-session": "~1.0.4",
+    "google-books-search": "^0.3.1",
     "jade": "~1.3.0",
     "mongoose": "~3.8.12",
     "morgan": "~1.0.0",

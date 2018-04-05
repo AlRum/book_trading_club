@@ -1,0 +1,58 @@
+extends layout
+block content
+
+	script.
+		var u='!{books}'
+		console.log("arrays")
+		g=JSON.parse(u)
+		console.log(g[1])
+
+	
+	
+	html.
+		<div class='container-fluid'>
+		<div class="jumbotron">
+		<h1>Book trading club</h1>
+		<p>The best place to trade your books</p>
+		</div>
+		<h4><a href="./login">login</a></h4>
+		<h4>Available books:</h4>
+		
+		<div class="row ">
+		
+		<script>
+			console.log("arrays")
+			console.log(g)
+			for (var i=0;i<g.length;i++){
+			
+			if (i%3==0&&i!=0)
+			{
+			document.write('</div>')
+			document.write('<div class="row">')
+			}
+			document.write('<div class="col-sm-4">') //<div class="col-xs-8 col-sm-3 col-md-2 col-lg-2">
+			//document.write('<a href="/displaybook?name='+g[i].name+'">')
+			//document.write('<p>'+g[i].name+'</p>');
+			document.write('<img src='+g[i].url+ ' alt="" class="product_listing_img img-responsive" >') //style="width:304px;height:228px;"
+			
+			document.write('</div>')
+			/*if (i%3==0)
+			{
+			document.write('</div>')
+			}*/
+			document.write('</a>')
+			
+			
+				
+			}
+			//document.write("<body>");
+			//document.write("Be first to vote!");
+			//var g=JSON.parse('#{names}')
+			//console.log(JSON.stringify(g));
+			//console.log(g);
+			//console.log('idiots22');
+			//document.write("<div class='container'>");
+		</script>
+	</div>
+	a(href='/../home') home
+		
